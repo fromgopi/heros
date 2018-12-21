@@ -3,8 +3,11 @@
   <h1>
     Welcome to {{ title }}!
     <div>
+      <nav>
+        <a routerLink="/heros">Heroes</a>
+      </nav>
       <p>
-        <app-heros></app-heros>
+        <router-outlet></router-outlet>
         <app-messages></app-messages>
       </p>
     </div>
