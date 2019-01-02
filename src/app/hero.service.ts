@@ -20,6 +20,11 @@ export class HeroService {
 
   private heroesUrl = 'api/heros';
 
+  /**
+   * This function will get all the heroes from the db.
+   * This is GET option.
+   */
+
   getHeros(): Observable<Hero[]> {
     return this.http.get<Hero[]>(this.heroesUrl)
       .pipe(
@@ -39,12 +44,37 @@ export class HeroService {
     );
   }
 
+  /**
+   * This function updates the hero name.
+   * Parameter:- hero
+   * This is PUT Option.
+   */
   updateHero(hero: Hero): Observable<any> {
-    console.log(hero)
+    console.log(hero);
     return this.http.put(this.heroesUrl, hero, httpOptions)
       .pipe(
         tap(_ => this.log(`Updated hero id=${hero.id}`)),
         catchError(this.handleError<any>('updateHero'))
+      );
+  }
+
+
+  addHero(hero: Hero): Observable<any> {
+    return this.http.post(this.heroesUrl, hero, httpOptions)
+      .pipe(
+        tap((h: Hero) => this.log(`added hero w/ id=${h.id}`)),
+        catchError(this.handleError<Hero>('addHero'))
+      );
+  }
+
+  deleteHero(hero: Hero | number): Observable<Hero> {
+    const id = typeof hero === 'number' ? hero : hero.id;
+    const url =  `${this.heroesUrl}/${id}`;
+    console.log(`The url for deleting any hero is ${url}`);
+    return this.http.delete<Hero>(url, httpOptions)
+      .pipe(
+        tap(_ => this.log(`deleted hero id=${id}`)),
+        catchError(this.handleError<Hero>('deleteHero'))
       );
   }
 
