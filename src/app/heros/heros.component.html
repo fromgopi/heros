@@ -1,4 +1,4 @@
-<h2>My Hero's</h2>
+<h3>My Hero's</h3>
 <ul class="heroes">
   <li *ngFor="let hero of heros">
     <a routerLink="/details/{{hero.id}}">
@@ -11,4 +11,5 @@
 </ul>
 
 <app-hero-details [hero]="selectedHero"></app-hero-details>
+<app-messages></app-messages>
 
